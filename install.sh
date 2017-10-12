@@ -31,4 +31,4 @@ clear
 echo -e "\\033[48;5;95;38;5;214m### setup finish.. ###\\033[0m"
 sleep 5
 proxychains4
-echo "$(tput bold)$(tput setaf 3)now  typ command $(tput setaf 7)proxychains4$(tput setaf 3) for proxychains setup like Kali Linux..$(tput sgr 0)" | pv -qL 8 ;
+echo "$(tput bold)$(tput setaf 3)now  typ command $(tput setaf 1)proxychains4$(tput setaf 3) for proxychains setup like Kali Linux..$(tput sgr 0)" | pv -qL 8 ;
