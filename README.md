@@ -23,8 +23,7 @@
   THE AUTHORS AND MAINTAINERS OF PROXYCHAINS DO NOT TAKE ANY
   RESPONSIBILITY FOR ANY ABUSE OR MISUSE OF THIS SOFTWARE AND
   THE RESULTING CONSEQUENCES.
-  > ### Installing
-
+ ### Installing
 `git clone https://github.com/remo7777/REMO773.git`
 
 `cd REMO773; ls`
@@ -34,5 +33,5 @@
 `./install.sh`
 
 after successfully install just type command `proxychains4`
-># How to use 
+# How to use 
 i ll add tutorials as soon as possible... 
