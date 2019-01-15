@@ -26,7 +26,7 @@ mv $msfpath/metasploit-framework-$msfvar $msfpath/metasploit-framework
 cd $msfpath/metasploit-framework
 sed '/rbnacl/d' -i Gemfile.lock
 sed '/rbnacl/d' -i metasploit-framework.gemspec
-gem install bundler
+gem install bundler --version=1.16.2
 
 isNokogiri=$(gem list nokogiri -i)
 isGrpc=$(gem list grpc -i)
