@@ -10,57 +10,61 @@ cwd=$(pwd)
 #	exit 1
 #fi
 
-msfvar=4.16.50
+msfvar=5.0.2
 msfpath='/data/data/com.termux/files/home'
 if [ -d "$msfpath/metasploit-framework" ]; then
-	echo "i ll remove older one"
-	
+	echo "deleting old version..."
+        rm $msfpath/metasploit-framework -rf
 fi
 apt update
-apt install -y finch autoconf bison clang coreutils curl findutils git apr apr-util libffi-dev libgmp-dev libpcap-dev postgresql-dev readline-dev libsqlite-dev openssl-dev libtool libxml2-dev libxslt-dev ncurses-dev pkg-config wget make ruby-dev libgrpc-dev termux-tools ncurses-utils ncurses unzip zip tar postgresql termux-elf-cleaner
+apt install -y autoconf bison clang coreutils curl findutils git apr apr-util libffi-dev libgmp-dev libpcap-dev postgresql-dev readline-dev libsqlite-dev openssl-dev libtool libxml2-dev libxslt-dev ncurses-dev pkg-config wget make ruby-dev libgrpc-dev termux-tools ncurses-utils ncurses unzip zip tar postgresql termux-elf-cleaner
 
 cd $msfpath
 curl -LO https://github.com/rapid7/metasploit-framework/archive/$msfvar.tar.gz
 tar -xf $msfpath/$msfvar.tar.gz
 mv $msfpath/metasploit-framework-$msfvar $msfpath/metasploit-framework
 cd $msfpath/metasploit-framework
-sed '/rbnacl/d' -i Gemfile.lock
-sed '/rbnacl/d' -i metasploit-framework.gemspec
-gem install bundler --version=1.16.2
-
-isNokogiri=$(gem list nokogiri -i)
-isGrpc=$(gem list grpc -i)
-
-sed 's|nokogiri (1.*)|nokogiri (1.8.0)|g' -i Gemfile.lock
-
-if [ $isNokogiri == "false" ];
-then
-      gem install nokogiri -v'1.8.0' -- --use-system-libraries
-else
-	echo "nokogiri already installed"
+if [ $(gem list -i rubygems-update) == false ]; then
+        gem install rubygems-update
 fi
 
+update_rubygems
+
+
+gem install bundler
+gem install nokogiri -v'1.8.5' -- --use-system-libraries
 cd $msfpath/metasploit-framework
 bundle install -j5
 
+
+
+
 echo "Gems installed"
 $PREFIX/bin/find -type f -executable -exec termux-fix-shebang \{\} \;
-rm ./modules/auxiliary/gather/http_pdf_authors.rb
 
-if [ -e $PATH/bin/msfconsole ];then
-	rm $PATH/bin/msfconsole
+if [ -e $PREFIX/bin/msfconsole ];then
+	rm $PREFIX/bin/msfconsole
 fi
-if [ -e $PATH/bin/msfvenom ];then
-	rm $PATH/bin/msfvenom
+if [ -e $PREFIX/bin/msfvenom ];then
+	rm $PREFIX/bin/msfvenom
 fi
-ln -s $msfpath/metasploit-framework/msfconsole /data/data/com.termux/files/usr/bin/
-ln -s $msfpath/metasploit-framework/msfvenom /data/data/com.termux/files/usr/bin/
+
+echo "#!/data/data/com.termux/files/usr/bin/bash
+pg_ctl --log=$HOME/.logpgfl -D $PREFIX/var/lib/postgresql restart &> /dev/null
+ruby $msfpath/metasploit-framework/msfconsole" > $PREFIX/bin/msfconsole
+
+echo "#!/data/data/com.termux/files/usr/bin/bash
+ruby $msfpath/metasploit-framework/msfvenom" > $PREFIX/bin/msfvenom
+
+chmod +rwx $PREFIX/bin/msfconsole
+chmod +rwx $PREFIX/bin/msfvenom
 
 termux-elf-cleaner /data/data/com.termux/files/usr/lib/ruby/gems/2.4.0/gems/pg-0.20.0/lib/pg_ext.so
+
 echo "Creating database"
 
 cd $msfpath/metasploit-framework/config
-curl -LO https://raw.githubusercontent.com/Hax4us/Metasploit_termux/master/database.yml
+curl -LO https://Auxilus.github.io/database.yml
 
 mkdir -p $PREFIX/var/lib/postgresql
 initdb $PREFIX/var/lib/postgresql
