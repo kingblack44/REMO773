@@ -28,11 +28,11 @@ gem install bundler --version=1.17.3 -- --use-system-libraries
 
 
 gem install pg --version=0.20.0 -- --use-system-libraries
-#if [ $(gem list -i rubygems-update) == false ]; then
-#        gem install rubygems-update
-#fi
+if [ $(gem list -i rubygems-update) == false ]; then
+        gem install rubygems-update
+fi
 
-##update_rubygems
+update_rubygems
 
 
 gem install nokogiri -v'1.8.5' -- --use-system-libraries
