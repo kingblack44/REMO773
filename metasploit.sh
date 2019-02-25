@@ -28,7 +28,7 @@ cd $msfpath/metasploit-framework
 #        gem install rubygems-update
 #fi
 
-update_rubygems
+#update_rubygems
 
 
 gem install bundler
@@ -39,7 +39,8 @@ bundle install -j5
 
 
 
-echo "Gems installed"
+
+echo -e "\033[34mGems installed\033[0m"
 $PREFIX/bin/find -type f -executable -exec termux-fix-shebang \{\} \;
 
 if [ -e $PREFIX/bin/msfconsole ];then
@@ -64,6 +65,7 @@ termux-elf-cleaner /data/data/com.termux/files/usr/lib/ruby/gems/2.4.0/gems/pg-0
 echo "Creating database"
 
 cd $msfpath/metasploit-framework/config
+
 curl -LO https://Auxilus.github.io/database.yml
 
 mkdir -p $PREFIX/var/lib/postgresql
