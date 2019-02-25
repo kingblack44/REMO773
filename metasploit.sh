@@ -30,8 +30,7 @@ cd $msfpath/metasploit-framework
 
 #update_rubygems
 
-
-gem install bundler
+gem install bundler --version=1.17.3
 gem install nokogiri -v'1.8.5' -- --use-system-libraries
 cd $msfpath/metasploit-framework
 bundle install -j5
