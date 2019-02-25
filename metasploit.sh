@@ -24,13 +24,14 @@ curl -LO https://github.com/rapid7/metasploit-framework/archive/$msfvar.tar.gz
 tar -xf $msfpath/$msfvar.tar.gz
 mv $msfpath/metasploit-framework-$msfvar $msfpath/metasploit-framework
 cd $msfpath/metasploit-framework
-#if [ $(gem list -i rubygems-update) == false ]; then
-#        gem install rubygems-update
-#fi
+gem install bundler --version=1.16.2
+if [ $(gem list -i rubygems-update) == false ]; then
+        gem install rubygems-update
+fi
 
-#update_rubygems
+update_rubygems
 
-gem install bundler --version=1.17.3
+
 gem install nokogiri -v'1.8.5' -- --use-system-libraries
 cd $msfpath/metasploit-framework
 bundle install -j5
