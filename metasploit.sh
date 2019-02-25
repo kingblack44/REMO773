@@ -10,7 +10,7 @@ cwd=$(pwd)
 #	exit 1
 #fi
 
-msfvar=5.0.2
+msfvar=5.0.8
 msfpath='/data/data/com.termux/files/home'
 if [ -d "$msfpath/metasploit-framework" ]; then
 	echo "deleting old version..."
@@ -25,11 +25,12 @@ tar -xf $msfpath/$msfvar.tar.gz
 mv $msfpath/metasploit-framework-$msfvar $msfpath/metasploit-framework
 cd $msfpath/metasploit-framework
 gem install bundler --version=1.16.2
-if [ $(gem list -i rubygems-update) == false ]; then
-        gem install rubygems-update
-fi
+gem install pg --version=0.20.0
+#if [ $(gem list -i rubygems-update) == false ]; then
+#        gem install rubygems-update
+#fi
 
-update_rubygems
+##update_rubygems
 
 
 gem install nokogiri -v'1.8.5' -- --use-system-libraries
