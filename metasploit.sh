@@ -10,7 +10,7 @@ cwd=$(pwd)
 #	exit 1
 #fi
 
-msfvar=5.0.2
+msfvar=4.17.44
 msfpath='/data/data/com.termux/files/home'
 if [ -d "$msfpath/metasploit-framework" ]; then
 	echo "deleting old version..."
@@ -27,7 +27,7 @@ cd $msfpath/metasploit-framework
 gem install bundler
 #--version=1.17.3 -- --use-system-libraries
 
-
+gem install bigdecimal
 gem install pg --version=0.20.0 -- --use-system-libraries
 if [ $(gem list -i rubygems-update) == false ]; then
         gem install rubygems-update
