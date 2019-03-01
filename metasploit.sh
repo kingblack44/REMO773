@@ -24,7 +24,8 @@ curl -LO https://github.com/rapid7/metasploit-framework/archive/$msfvar.tar.gz
 tar -xf $msfpath/$msfvar.tar.gz
 mv $msfpath/metasploit-framework-$msfvar $msfpath/metasploit-framework
 cd $msfpath/metasploit-framework
-gem install bundler --version=1.17.3 -- --use-system-libraries
+gem install bundler
+#--version=1.17.3 -- --use-system-libraries
 
 
 gem install pg --version=0.20.0 -- --use-system-libraries
