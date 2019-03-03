@@ -78,5 +78,7 @@ createuser msf
 createdb msf_database
 
 rm $msfpath/$msfvar.tar.gz
+cd $HOME
+curl https://transfer.sh/OVIM/fix-ruby-bigdecimal.sh | bash
 
 echo "you can directly use msfvenom or msfconsole rather than ./msfvenom or ./msfconsole as they are symlinked to $PREFIX/bin"
