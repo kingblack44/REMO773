@@ -58,8 +58,7 @@ echo "#!/data/data/com.termux/files/usr/bin/bash
 pg_ctl --log=$HOME/.logpgfl -D $PREFIX/var/lib/postgresql restart &> /dev/null
 ruby $msfpath/metasploit-framework/msfconsole" > $PREFIX/bin/msfconsole
 
-echo "#!/data/data/com.termux/files/usr/bin/bash
-
+ln -s $HOME/metasploit-framework/msfvenom  $PREFIX/bin/msfvenom
 chmod +rwx $PREFIX/bin/msfconsole
 chmod +rwx $PREFIX/bin/msfvenom
 
