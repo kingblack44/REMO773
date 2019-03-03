@@ -59,7 +59,6 @@ pg_ctl --log=$HOME/.logpgfl -D $PREFIX/var/lib/postgresql restart &> /dev/null
 ruby $msfpath/metasploit-framework/msfconsole" > $PREFIX/bin/msfconsole
 
 echo "#!/data/data/com.termux/files/usr/bin/bash
-ruby $msfpath/metasploit-framework/msfvenom" > $PREFIX/bin/msfvenom
 
 chmod +rwx $PREFIX/bin/msfconsole
 chmod +rwx $PREFIX/bin/msfvenom
@@ -75,7 +74,7 @@ curl -LO https://Auxilus.github.io/database.yml
 mkdir -p $PREFIX/var/lib/postgresql
 initdb $PREFIX/var/lib/postgresql
 
-pg_ctl -D $PREFIX/var/lib/postgresql start
+pg_ctl -D $PREFIX/var/lib/postgresqlart
 createuser msf
 createdb msf_database
 
