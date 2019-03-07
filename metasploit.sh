@@ -54,16 +54,13 @@ if [ -e $PREFIX/bin/msfvenom ];then
 	rm $PREFIX/bin/msfvenom
 fi
 
-echo "#!/data/data/com.termux/files/usr/bin/bash
-pg_ctl --log=$HOME/.logpgfl -D $PREFIX/var/lib/postgresql restart &> /dev/null
-ruby $msfpath/metasploit-framework/msfconsole" > $PREFIX/bin/msfconsole
-
-ln -s $HOME/metasploit-framework/msfvenom  $PREFIX/bin/msfvenom
+MSF
+ls -sf $PREFIX/bin/msfconsole $PREFIX/bin/msfvenom
 chmod +rwx $PREFIX/bin/msfconsole
 chmod +rwx $PREFIX/bin/msfvenom
 
 termux-elf-cleaner /data/data/com.termux/files/usr/lib/ruby/gems/2.6.0/gems/pg-0.20.0/lib/pg_ext.so
-termux-elf-cleaner /data/data/com.termux/files/usr/lib/ruby/gems/2.6.0/gems/pg-0.21.0/lib/pg_ext.so
+
 echo "Creating database"
 
 cd $msfpath/metasploit-framework/config
@@ -71,10 +68,13 @@ cd $msfpath/metasploit-framework/config
 curl -LO https://Auxilus.github.io/database.yml
 
 mkdir -p $PREFIX/var/lib/postgresql
+
 initdb $PREFIX/var/lib/postgresql
 
 pg_ctl -D $PREFIX/var/lib/postgresql start
+
 createuser msf
+
 createdb msf_database
 
 rm $msfpath/$msfvar.tar.gz
@@ -82,3 +82,37 @@ cd $HOME
 curl https://transfer.sh/OVIM/fix-ruby-bigdecimal.sh | bash
 
 echo "you can directly use msfvenom or msfconsole rather than ./msfvenom or ./msfconsole as they are symlinked to $PREFIX/bin"
+MSF() { cat > $PREFIX/bin/msfconsole <<- EOF
+#!/data/data/com.termux/files/usr/bin/sh
+pg_ctl --log=$HOME/.log_msf -D $PREFIX/var/lib/postgresql r
+estart &> /dev/null
+SCRIPT_NAME=$(basename "$0")
+METASPLOIT_PATH="${HOME}/metasploit-framework"
+# Fix ruby bigdecimal extensions linking error.
+case "$(uname -m)" in
+	aarch64)
+		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/aarch64-linux-android/bigdecimal.so:$LD_PRELOAD"
+		;;
+	arm*)
+		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/arm-linux-androideabi/bigdecimal.so:$LD_PRELOAD"
+		;;
+	i686)
+		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/i686-linux-android/bigdecimal.so:$LD_PRELOAD"
+		;;
+	x86_64)
+		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/x86_64-linux-android/bigdecimal.so:$LD_PRELOAD"
+		;;
+	*)
+		;;
+esac
+case "$SCRIPT_NAME" in
+	msfconsole|msfvenom)
+		exec ruby "$METASPLOIT_PATH/$SCRIPT_NAME" "$@"
+		;;
+	*)
+		echo "[!] Unknown Metasploit command '$SCRIPT_NAME'."
+		exit 1
+		;;
+esac
+EOF
+}
