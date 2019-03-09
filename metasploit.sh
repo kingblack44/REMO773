@@ -1,4 +1,38 @@
 #!/data/data/com.termux/files/usr/bin/bash
+MSF () {
+cat > $PREFIX/bin/msfconsole <<- EOF
+#!/data/data/com.termux/files/usr/bin/sh
+pg_ctl --log=$HOME/.log_msf -D $PREFIX/var/lib/postgresql restart &> /dev/null
+SCRIPT_NAME=$(basename "$0")
+METASPLOIT_PATH="${HOME}/metasploit-framework"
+# Fix ruby bigdecimal extensions linking error.
+case "$(uname -m)" in
+	aarch64)
+		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/aarch64-linux-android/bigdecimal.so:$LD_PRELOAD"
+		;;
+	arm*)
+		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/arm-linux-androideabi/bigdecimal.so:$LD_PRELOAD"
+		;;
+	i686)
+		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/i686-linux-android/bigdecimal.so:$LD_PRELOAD"
+		;;
+	x86_64)
+		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/x86_64-linux-android/bigdecimal.so:$LD_PRELOAD"
+		;;
+	*)
+		;;
+esac
+case "$SCRIPT_NAME" in
+	msfconsole|msfvenom)
+		exec ruby "$METASPLOIT_PATH/$SCRIPT_NAME" "$@"
+		;;
+	*)
+		echo "[!] Unknown Metasploit command '$SCRIPT_NAME'."
+		exit 1
+		;;
+esac
+EOF
+}
 
 cwd=$(pwd)
 #name=$(basename "$0")
@@ -27,17 +61,11 @@ cd $msfpath/metasploit-framework
 gem install bundler
 #--version=1.17.3 -- --use-system-libraries
 
-gem install bigdecimal
+#gem install bigdecimal
 gem install pg --version=0.20.0 -- --use-system-libraries
-if [ $(gem list -i rubygems-update) == false ]; then
-        gem install rubygems-update
-fi
-
-update_rubygems
-
-
 gem install nokogiri -v'1.8.5' -- --use-system-libraries
 cd $msfpath/metasploit-framework
+gem update --system
 bundle install -j5
 
 
@@ -80,40 +108,6 @@ createdb msf_database
 
 rm $msfpath/$msfvar.tar.gz
 cd $HOME
-curl https://transfer.sh/OVIM/fix-ruby-bigdecimal.sh | bash
+#curl https://transfer.sh/OVIM/fix-ruby-bigdecimal.sh | bash
 
 echo "you can directly use msfvenom or msfconsole rather than ./msfvenom or ./msfconsole as they are symlinked to $PREFIX/bin"
-MSF () {
-cat > $PREFIX/bin/msfconsole <<- EOF
-#!/data/data/com.termux/files/usr/bin/sh
-pg_ctl --log=$HOME/.log_msf -D $PREFIX/var/lib/postgresql restart &> /dev/null
-SCRIPT_NAME=$(basename "$0")
-METASPLOIT_PATH="${HOME}/metasploit-framework"
-# Fix ruby bigdecimal extensions linking error.
-case "$(uname -m)" in
-	aarch64)
-		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/aarch64-linux-android/bigdecimal.so:$LD_PRELOAD"
-		;;
-	arm*)
-		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/arm-linux-androideabi/bigdecimal.so:$LD_PRELOAD"
-		;;
-	i686)
-		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/i686-linux-android/bigdecimal.so:$LD_PRELOAD"
-		;;
-	x86_64)
-		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/x86_64-linux-android/bigdecimal.so:$LD_PRELOAD"
-		;;
-	*)
-		;;
-esac
-case "$SCRIPT_NAME" in
-	msfconsole|msfvenom)
-		exec ruby "$METASPLOIT_PATH/$SCRIPT_NAME" "$@"
-		;;
-	*)
-		echo "[!] Unknown Metasploit command '$SCRIPT_NAME'."
-		exit 1
-		;;
-esac
-EOF
-}
