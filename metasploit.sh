@@ -10,7 +10,7 @@ cwd=$(pwd)
 #	exit 1
 #fi
 
-msfvar=5.0.8
+msfvar=5.0.4
 msfpath='/data/data/com.termux/files/home'
 if [ -d "$msfpath/metasploit-framework" ]; then
 	echo "deleting old version..."
@@ -57,7 +57,7 @@ fi
 MSF
 ls -sf $PREFIX/bin/msfconsole $PREFIX/bin/msfvenom
 chmod +rwx $PREFIX/bin/msfconsole
-chmod +rwx $PREFIX/bin/msfvenom
+#chmod +rwx $PREFIX/bin/msfvenom
 
 termux-elf-cleaner /data/data/com.termux/files/usr/lib/ruby/gems/2.6.0/gems/pg-0.20.0/lib/pg_ext.so
 
