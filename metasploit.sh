@@ -84,7 +84,7 @@ fi
 
 MSF
 chmod +rwx $PREFIX/bin/msfconsole
-ls -sf $PREFIX/bin/msfconsole $PREFIX/bin/msfvenom
+ls -sf $(which msfconsole) $PREFIX/bin/msfvenom
 
 #chmod +rwx $PREFIX/bin/msfvenom
 
