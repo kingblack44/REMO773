@@ -82,10 +82,9 @@ cd $HOME
 curl https://transfer.sh/OVIM/fix-ruby-bigdecimal.sh | bash
 
 echo "you can directly use msfvenom or msfconsole rather than ./msfvenom or ./msfconsole as they are symlinked to $PREFIX/bin"
-MSF() { cat > $PREFIX/bin/msfconsole <<- EOF
+MSF () { cat > $PREFIX/bin/msfconsole <<- EOF
 #!/data/data/com.termux/files/usr/bin/sh
-pg_ctl --log=$HOME/.log_msf -D $PREFIX/var/lib/postgresql r
-estart &> /dev/null
+pg_ctl --log=$HOME/.log_msf -D $PREFIX/var/lib/postgresql restart &> /dev/null
 SCRIPT_NAME=$(basename "$0")
 METASPLOIT_PATH="${HOME}/metasploit-framework"
 # Fix ruby bigdecimal extensions linking error.
