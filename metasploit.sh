@@ -55,8 +55,9 @@ if [ -e $PREFIX/bin/msfvenom ];then
 fi
 
 MSF
-ls -sf $PREFIX/bin/msfconsole $PREFIX/bin/msfvenom
 chmod +rwx $PREFIX/bin/msfconsole
+ls -sf $PREFIX/bin/msfconsole $PREFIX/bin/msfvenom
+
 #chmod +rwx $PREFIX/bin/msfvenom
 
 termux-elf-cleaner /data/data/com.termux/files/usr/lib/ruby/gems/2.6.0/gems/pg-0.20.0/lib/pg_ext.so
