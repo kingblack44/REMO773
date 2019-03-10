@@ -2,7 +2,7 @@
 MSF () {
 cat > $PREFIX/bin/msfconsole <<- EOF
 #!/data/data/com.termux/files/usr/bin/sh
-pg_ctl --log=$HOME/.log_msf -D $PREFIX/var/lib/postgresql restart &> /dev/null
+
 SCRIPT_NAME=$(basename "$0")
 METASPLOIT_PATH="${HOME}/metasploit-framework"
 # Fix ruby bigdecimal extensions linking error.
@@ -22,6 +22,7 @@ case "$(uname -m)" in
 	*)
 		;;
 esac
+pg_ctl --log=$HOME/.log_msf -D $PREFIX/var/lib/postgresql restart &> /dev/null;
 case "$SCRIPT_NAME" in
 	msfconsole|msfvenom)
 		exec ruby "$METASPLOIT_PATH/$SCRIPT_NAME" "$@"
