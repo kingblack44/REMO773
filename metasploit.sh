@@ -52,7 +52,7 @@ if [ -d "$msfpath/metasploit-framework" ]; then
         rm $msfpath/metasploit-framework -rf
 fi
 apt update
-apt install -y autoconf bison clang coreutils finch curl findutils git apr apr-util libffi-dev libgmp-dev libpcap-dev postgresql-dev readline-dev libsqlite-dev openssl-dev libtool libxml2-dev libxslt-dev ncurses-dev pkg-config wget make ruby-dev libgrpc-dev termux-tools ncurses-utils ncurses unzip zip tar postgresql termux-elf-cleaner
+apt install -y ncurses-utils autoconf bison clang coreutils finch curl findutils git apr apr-util libffi-dev libgmp-dev libpcap-dev postgresql-dev readline-dev libsqlite-dev openssl-dev libtool libxml2-dev libxslt-dev ncurses-dev pkg-config wget make ruby-dev libgrpc-dev termux-tools ncurses-utils ncurses unzip zip tar postgresql termux-elf-cleaner
 
 cd $msfpath
 curl -LO https://github.com/rapid7/metasploit-framework/archive/$msfvar.tar.gz
@@ -111,4 +111,4 @@ rm $msfpath/$msfvar.tar.gz
 cd $HOME
 #curl https://transfer.sh/OVIM/fix-ruby-bigdecimal.sh | bash
 
-echo "you can directly use msfvenom or msfconsole rather than ./msfvenom or ./msfconsole as they are symlinked to $PREFIX/bin"
+echo "$(tput setaf 3)you can directly use $(tput setaf 1)msfvenom$(tput setaf 3) or $(tput setaf 1)msfconsole $(tput setaf 3)rather than $(tput setaf 2)./msfvenom or ./msfconsole$(tput setaf 3) as they are $(tput setaf 1)symlinked to $PREFIX/bin$(tput sgr0)"
