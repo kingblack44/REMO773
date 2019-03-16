@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 MSF () {
 cat > $PREFIX/bin/msfconsole <<- EOF
-#!/data/data/com.termux/files/usr/bin/sh
+#!/data/data/com.termux/files/usr/bin/bash
 
 SCRIPT_NAME=$(basename "$0")
 METASPLOIT_PATH="${HOME}/metasploit-framework"
