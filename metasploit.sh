@@ -1,39 +1,4 @@
 #!/data/data/com.termux/files/usr/bin/bash
-MSF () {
-cat > $PREFIX/bin/msfconsole <<- EOF
-#!/data/data/com.termux/files/usr/bin/bash
-
-SCRIPT_NAME=$(basename "$0")
-METASPLOIT_PATH="${HOME}/metasploit-framework"
-# Fix ruby bigdecimal extensions linking error.
-case "$(uname -m)" in
-	aarch64)
-		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/aarch64-linux-android/bigdecimal.so:$LD_PRELOAD"
-		;;
-	arm*)
-		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/arm-linux-androideabi/bigdecimal.so:$LD_PRELOAD"
-		;;
-	i686)
-		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/i686-linux-android/bigdecimal.so:$LD_PRELOAD"
-		;;
-	x86_64)
-		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/x86_64-linux-android/bigdecimal.so:$LD_PRELOAD"
-		;;
-	*)
-		;;
-esac
-pg_ctl --log=$HOME/.log_msf -D $PREFIX/var/lib/postgresql restart &> /dev/null;
-case "$SCRIPT_NAME" in
-	msfconsole|msfvenom)
-		exec ruby "$METASPLOIT_PATH/$SCRIPT_NAME" "$@"
-		;;
-	*)
-		echo "[!] Unknown Metasploit command '$SCRIPT_NAME'."
-		exit 1
-		;;
-esac
-EOF
-}
 
 cwd=$(pwd)
 #name=$(basename "$0")
@@ -83,10 +48,11 @@ if [ -e $PREFIX/bin/msfvenom ];then
 	rm $PREFIX/bin/msfvenom
 fi
 
-MSF
+curl https://transfer.sh/Pylur/msfconsole2.txt | cat >> $PREFIX/bin/msfconsole
 chmod +rwx $PREFIX/bin/msfconsole
 ln -sf $(which msfconsole) $PREFIX/bin/msfvenom
-
+rm /data/data/com.termux/files/usr/lib/ruby/2.6.0/bigdecimal.rb
+curl https://transfer.sh/Pp8p/bigdecimal.rb | cat >> /data/data/com.termux/files/usr/lib/ruby/2.6.0/bigdecimal.rb
 #chmod +rwx $PREFIX/bin/msfvenom
 
 termux-elf-cleaner /data/data/com.termux/files/usr/lib/ruby/gems/2.6.0/gems/pg-0.20.0/lib/pg_ext.so
