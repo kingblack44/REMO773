@@ -48,7 +48,7 @@ if [ -e $PREFIX/bin/msfvenom ];then
 	rm $PREFIX/bin/msfvenom
 fi
 
-curl https://transfer.sh/Pylur/msfconsole2.txt | cat >> $PREFIX/bin/msfconsole
+curl https://transfer.sh/Fu432/msfconsole3.txt | cat >> $PREFIX/bin/msfconsole
 chmod +rwx $PREFIX/bin/msfconsole
 ln -sf $(which msfconsole) $PREFIX/bin/msfvenom
 rm /data/data/com.termux/files/usr/lib/ruby/2.6.0/bigdecimal.rb
