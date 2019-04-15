@@ -32,7 +32,7 @@ gem install pg --version=0.20.0 -- --use-system-libraries
 gem install nokogiri -v'1.8.5' -- --use-system-libraries
 cd $msfpath/metasploit-framework
 gem update --system
-gem install bundler --version "1.17."
+gem install bundler --version "1.17.3"
 bundle install -j5
 
 
