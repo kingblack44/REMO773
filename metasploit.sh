@@ -49,11 +49,11 @@ if [ -e $PREFIX/bin/msfvenom ];then
 	rm $PREFIX/bin/msfvenom
 fi
 
-curl https://transfer.sh/Fu432/msfconsole3.txt | cat >> $PREFIX/bin/msfconsole
+#curl https://transfer.sh/Fu432/msfconsole3.txt | cat >> $PREFIX/bin/msfconsole
 chmod +rwx $PREFIX/bin/msfconsole
 ln -sf $(which msfconsole) $PREFIX/bin/msfvenom
-rm /data/data/com.termux/files/usr/lib/ruby/2.6.0/bigdecimal.rb
-curl https://transfer.sh/Pp8p/bigdecimal.rb | cat >> /data/data/com.termux/files/usr/lib/ruby/2.6.0/bigdecimal.rb
+#rm /data/data/com.termux/files/usr/lib/ruby/2.6.0/bigdecimal.rb
+#curl https://transfer.sh/Pp8p/bigdecimal.rb | cat >> /data/data/com.termux/files/usr/lib/ruby/2.6.0/bigdecimal.rb
 #chmod +rwx $PREFIX/bin/msfvenom
 
 termux-elf-cleaner /data/data/com.termux/files/usr/lib/ruby/gems/2.6.0/gems/pg-0.20.0/lib/pg_ext.so
