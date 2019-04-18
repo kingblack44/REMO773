@@ -48,7 +48,7 @@ fi
 if [ -e $PREFIX/bin/msfvenom ];then
 	rm $PREFIX/bin/msfvenom
 fi
-
+curl https://raw.githubusercontent.com/remo7777/REMO773/master/msfconsole | cat >> $PREFIX/bin/msfconsole
 #curl https://transfer.sh/Fu432/msfconsole3.txt | cat >> $PREFIX/bin/msfconsole
 chmod +rwx $PREFIX/bin/msfconsole
 ln -sf $(which msfconsole) $PREFIX/bin/msfvenom
