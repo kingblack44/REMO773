@@ -10,7 +10,7 @@ cwd=$(pwd)
 #	exit 1
 #fi
 
-msfvar=5.0.4
+msfvar=5.0.19
 msfpath='/data/data/com.termux/files/home'
 if [ -d "$msfpath/metasploit-framework" ]; then
 	echo "deleting old version..."
