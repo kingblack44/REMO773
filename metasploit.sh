@@ -80,4 +80,4 @@ rm $msfpath/$msfvar.tar.gz
 cd $HOME
 #curl https://transfer.sh/OVIM/fix-ruby-bigdecimal.sh | bash
 
-echo "$(tput setaf 3)you can directly use $(tput setaf 1)msfvenom$(tput setaf 3) or $(tput setaf 1)msfconsole $(tput setaf 3)rather than $(tput setaf 2)./msfvenom or ./msfconsole$(tput setaf 3) as they are $(tput setaf 1)symlinked to $PREFIX/bin$(tput sgr0)"
+echo "$(tput setaf 3)you can directly use $(tput setaf 1)./msfvenom$(tput setaf 3) or $(tput setaf 1)./msfconsole $(tput setaf 3)rather than $(tput setaf 2)msfvenom or msfconsole$(tput setaf 3) as they are $(tput setaf 1)symlinked to $PREFIX/bin$(tput sgr0)"
