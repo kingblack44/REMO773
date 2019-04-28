@@ -29,7 +29,7 @@ gem install bundler --version=1.17.3 -- --use-system-libraries
 #gem install bigdecimal
 gem install pg --version=0.20.0 -- --use-system-libraries
 gem install nokogiri -v'1.10.2' -- --use-system-libraries
-gem install nokogiri -v'1.8.5' -- --use-system-libraries
+#gem install nokogiri -v'1.8.5' -- --use-system-libraries
 cd $msfpath/metasploit-framework
 gem update --system
 #gem install bundler --version "1.17.3"
@@ -71,7 +71,7 @@ mkdir -p $PREFIX/var/lib/postgresql
 initdb $PREFIX/var/lib/postgresql
 
 pg_ctl -D $PREFIX/var/lib/postgresql start
-
+#
 createuser msf
 
 createdb msf_database
