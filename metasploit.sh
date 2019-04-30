@@ -54,8 +54,8 @@ chmod +rwx $PREFIX/bin/msfconsole
 ln -sf $(which msfconsole) $PREFIX/bin/msfvenom
 #rm /data/data/com.termux/files/usr/lib/ruby/2.6.0/bigdecimal.rb
 #curl https://raw.githubusercontent.com/remo7777/REMO773/master/bigdecimal.rb | cat >> /data/data/com.termux/files/usr/lib/ruby/2.6.0/bigdecimal.rb
-sed -i "s/warn/#warn/g" $LD_LIBRARY_PATH/ruby/2.6.0/bigdecimal.rb
-
+#sed -i "s/warn/#warn/g" $LD_LIBRARY_PATH/ruby/2.6.0/bigdecimal.rb
+sed -i "s/warn/#warn/g" /data/data/com.termux/files/usr/lib/ruby/2.6.0/bigdecimal.rb
 #chmod +rwx $PREFIX/bin/msfvenom
 
 termux-elf-cleaner /data/data/com.termux/files/usr/lib/ruby/gems/2.6.0/gems/pg-0.20.0/lib/pg_ext.so
