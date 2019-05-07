@@ -71,7 +71,6 @@ createdb msf_database
 rm $msfpath/$msfvar.tar.gz
 cd $HOME
 echo
-
 echo "$(tput setaf 5)[*] $(tput setaf 3)Use command ... $(tput setaf 2)msfconsole $(tput setaf 3)and $(tput setaf 2)msfvenom"
 echo
 echo "$(tput setaf 5)[*] $(tput setaf 3)Don't use command ... $(tput setaf 2)./msfconsole $(tput setaf 3)and $(tput setaf 2)./msfvenom$(tput sgr0)"
