@@ -24,15 +24,11 @@ curl -LO https://github.com/rapid7/metasploit-framework/archive/$msfvar.tar.gz
 tar -xf $msfpath/$msfvar.tar.gz
 mv $msfpath/metasploit-framework-$msfvar $msfpath/metasploit-framework
 cd $msfpath/metasploit-framework
-gem install bundler --version=1.17.3 -- --use-system-libraries
-
-#gem install bigdecimal
-gem install pg --version=0.20.0 -- --use-system-libraries
-gem install nokogiri -v'1.10.2' -- --use-system-libraries
-#gem install nokogiri -v'1.8.5' -- --use-system-libraries
+gem install bundler --version '1.17.3' -- --use-system-libraries
+gem install pg --version '0.20.0' -- --use-system-libraries
+gem install nokogiri --version '1.10.2' -- --use-system-libraries
 cd $msfpath/metasploit-framework
 gem update --system
-#gem install bundler --version "1.17.3"
 bundle install -j5
 
 
@@ -49,14 +45,10 @@ if [ -e $PREFIX/bin/msfvenom ];then
 	rm $PREFIX/bin/msfvenom
 fi
 curl https://raw.githubusercontent.com/remo7777/REMO773/master/msfconsole | cat >> $PREFIX/bin/msfconsole
-#curl https://transfer.sh/Fu432/msfconsole3.txt | cat >> $PREFIX/bin/msfconsole
 chmod +rwx $PREFIX/bin/msfconsole
 ln -sf $(which msfconsole) $PREFIX/bin/msfvenom
-#rm /data/data/com.termux/files/usr/lib/ruby/2.6.0/bigdecimal.rb
-#curl https://raw.githubusercontent.com/remo7777/REMO773/master/bigdecimal.rb | cat >> /data/data/com.termux/files/usr/lib/ruby/2.6.0/bigdecimal.rb
-#sed -i "s/warn/#warn/g" $LD_LIBRARY_PATH/ruby/2.6.0/bigdecimal.rb
+
 sed -i "s/warn/#warn/g" /data/data/com.termux/files/usr/lib/ruby/2.6.0/bigdecimal.rb
-#chmod +rwx $PREFIX/bin/msfvenom
 
 termux-elf-cleaner /data/data/com.termux/files/usr/lib/ruby/gems/2.6.0/gems/pg-0.20.0/lib/pg_ext.so
 
@@ -78,6 +70,5 @@ createdb msf_database
 
 rm $msfpath/$msfvar.tar.gz
 cd $HOME
-#curl https://transfer.sh/OVIM/fix-ruby-bigdecimal.sh | bash
 
 echo "$(tput setaf 3)you can directly use $(tput setaf 1)./msfvenom$(tput setaf 3) or $(tput setaf 1)./msfconsole $(tput setaf 3)rather than $(tput setaf 2)msfvenom or msfconsole$(tput setaf 3) as they are $(tput setaf 1)symlinked to $PREFIX/bin$(tput sgr0)"
