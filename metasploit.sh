@@ -10,7 +10,7 @@ cwd=$(pwd)
 #	exit 1
 #fi
 
-msfvar=5.0.19
+msfvar=5.0.4
 msfpath='/data/data/com.termux/files/home'
 if [ -d "$msfpath/metasploit-framework" ]; then
 	echo "deleting old version..."
@@ -26,7 +26,7 @@ mv $msfpath/metasploit-framework-$msfvar $msfpath/metasploit-framework
 cd $msfpath/metasploit-framework
 gem install bundler --version '1.17.3' -- --use-system-libraries
 gem install pg --version '0.20.0' -- --use-system-libraries
-gem install nokogiri --version '1.10.2' -- --use-system-libraries
+gem install nokogiri --version '1.8.5' -- --use-system-libraries
 cd $msfpath/metasploit-framework
 gem update --system
 bundle install -j5
