@@ -16,6 +16,7 @@ if [ -d "$msfpath/metasploit-framework" ]; then
 	echo "deleting old version..."
         rm $msfpath/metasploit-framework -rf
 fi
+termux-wake-lock
 apt update && apt upgrade -y
 apt install -y ncurses-utils autoconf bison clang coreutils finch curl findutils git apr apr-util libffi-dev libgmp-dev libpcap-dev postgresql-dev readline-dev libsqlite-dev openssl-dev libtool libxml2-dev libxslt-dev ncurses-dev pkg-config wget make ruby-dev libgrpc-dev termux-tools ncurses-utils ncurses unzip zip tar postgresql termux-elf-cleaner
 
@@ -31,7 +32,7 @@ cd $msfpath/metasploit-framework
 gem update --system
 gem install nokogiri --version '1.10.2' -- --use-system-libraries
 
-bundle install -j5
+bundle install
 
 
 
@@ -71,6 +72,7 @@ createuser msf
 createdb msf_database
 
 rm $msfpath/$msfvar.tar.gz
+termux-wake-unlock
 cd $HOME
 echo
 echo "$(tput setaf 5)[*] $(tput setaf 3)Use command ... $(tput setaf 2)msfconsole $(tput setaf 3)and $(tput setaf 2)msfvenom"
