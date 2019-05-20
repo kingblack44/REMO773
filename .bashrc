@@ -1,6 +1,6 @@
-if [ $(tty) = /dev/pts/0 ]; then
-	bash ~/.boot Remo773-T-bag
-fi
+#if [ $(tty) = /dev/pts/0 ]; then
+#	bash ~/.boot Remo773-T-bag
+#fi
 
 alias kali="bash -l ~/.kali"
 alias ubuntu="bash -l ~/.ubuntu"
