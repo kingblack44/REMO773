@@ -3,7 +3,7 @@ SCRIPT_NAME=$(basename "$0")
 METASPLOIT_PATH="${HOME}/metasploit-framework"
 # Fix ruby bigdecimal extensions linking error.
 case "$(uname -m)" in
-	aarch64)
+	aarch64|armv8l)
 		export LD_PRELOAD="${PREFIX}/lib/ruby/2.6.0/aarch64-linux-android/bigdecimal.so:$LD_PRELOAD"
 		;;
 	arm*)
